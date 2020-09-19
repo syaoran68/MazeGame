@@ -1,14 +1,78 @@
-// Make global g_canvas JS 'object': a key-value 'dictionary'.
-var g_canvas = { cell_size:10, wid:64, hgt:64 }; // JS Global var, w canvas size info.
-var g_frame_cnt = 0; // Setup a P5 display-frame counter, to do anim
-var g_frame_mod = 24; // Update ever 'mod' frames.
-var g_stop = 0; // Go by default.
+var cols, rows;
+var w = 20;
+var grid = [];
+//current cell
+var current;
 
-function setup() // P5 Setup Fcn
-{
-    let sz = g_canvas.cell_size;
-    let width = sz * g_canvas.wid;  // Our 'canvas' uses cells of given size, not 1x1 pixels.
-    let height = sz * g_canvas.hgt;
-    createCanvas( width, height );  // Make a P5 canvas.
-    draw_grid( 16, 40, 'white', 'red' );
+function setup() {
+    createCanvas(800,800);
+    cols = floor(width/w);
+    rows = floor(height/w);
+
+    for(var j = 0; j < rows; j++)
+    {
+        for(var i = 0; i < cols; i++)
+        {
+            var cell = new Cell(i,j);
+            grid.push(cell);
+        }
+    }
+    current = grid[0];
+}
+
+function draw() {
+    background(51);
+    for (var i = 0; i < grid.length; i++)
+    {
+        grid[i].show();
+    }
+
+    current.visited = true;
+}
+
+function Cell(i, j) {
+    this.i = i;
+    this.j = j;
+    //top right bottom left
+    this.walls = [true, true, true, true];
+    this.visited = false;
+
+    this.show = function()
+    {
+        var x = this.i*w;
+        var y = this.j*w;
+        stroke(255);
+
+        
+        
+
+        if(this.walls[0])
+        {
+            line(x    , y    , x + w,y    );
+        }
+        if(this.walls[1])
+        {
+            line(x + w, y    , x + w,y + w);
+        }
+        if(this.walls[2])
+        {
+            line(x + w, y + w, x    ,y + w);
+        }
+        if(this.walls[3])
+        {
+            line(x    , y + w, x    ,y    );
+        }
+        line(x    , y    , x + w,y    );
+        line(x + w, y    , x + w,y + w);
+        line(x + w, y + w, x    ,y + w);
+        line(x    , y + w, x    ,y    );
+        
+        if(this.visited)
+        {
+            fill(255,0, 255, 100);
+            rect(x,y,w,w);
+        }
+    }
+
+    
 }
