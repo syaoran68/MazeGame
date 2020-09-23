@@ -1,3 +1,12 @@
+// Eddie Huang
+// edhuang04@csu.fullerton.edu
+// Salvador Chavez
+// schavez95@csu.fullerton.edu
+// Dylan Lackey
+// schavez95@csu.fullerton.edu
+// CPSC-386 Game Development
+// Project 1
+
 var maze;
 
 function setup()
@@ -159,3 +168,42 @@ function wall(i1, j1, i2, j2, s){
 		}
 	}
 }
+
+//tremeaux algorithm exploration of maze
+function mazeBot(rows, cols, s){
+	//give initial location of bot at indice 0,0 of maze
+	//indice 800,800 should be end point? 
+	var row = 0;
+	var col = 0;
+	//set the block size
+	this.s = s;
+
+	while(this.row != rows && this.col != cols)
+	{
+	//depth first search, enter first non broken wall
+	// -> if wall is hit, backtrack to next open wall until end point found
+	colorCell(this.row, this.col);
+
+	}
+
+}
+//function to assign color to visited cells
+// function colorCell(i, j)
+// {
+// 	initially color visited cells blue, twice visited cells should be red
+// 	if(p5.color != blue){
+//     if(cell.visited)
+//     {
+//         let c = color(blue);
+
+//     }
+	
+	// fill(c);
+	// rect(i, j, i+20, j+20);
+	/*}
+	else{
+	let c = color(red);
+	fill(c);
+	rect(i, j, i+20, j+20);
+	}*/
+//}
